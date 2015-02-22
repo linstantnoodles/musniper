@@ -11,7 +11,7 @@ var complete = false;
 
 // numeric value of UTC in ms
 function getDate(time) {
-  return moment(time).tz("America/New_York").format("dddd, MMMM Do YYYY, h:mA");
+  return moment(time).tz("America/New_York").format("dddd, MMMM Do YYYY, h:mmA");
 }
 
 // a and b are seconds
