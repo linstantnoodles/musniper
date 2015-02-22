@@ -6,9 +6,7 @@ var twilio = require("twilio");
 var twilioClient = twilio(process.env.ACCT_SID, process.env.AUTH_TOKEN);
 var prettyjson = require("prettyjson");
 var remaining = 30;
-var group_name = "AngularJS-NYC";
 var complete = false;
-var interval = 1000;
 
 // a and b are seconds
 // return ms
@@ -43,7 +41,7 @@ var days = function(future) {
 };
 
 function findEvent() {
-  var url = "https://api.meetup.com/2/groups?&sign=true&photo-host=public&group_urlname=" + group_name + "&fields=next_event&page=20" + "&key=" + process.env.MEETUP_KEY;
+  var url = "https://api.meetup.com/2/groups?&sign=true&photo-host=public&group_urlname=" + process.env.GROUP_NAME + "&fields=next_event&page=20" + "&key=" + process.env.MEETUP_KEY;
   request(url, function(err, res, body) {
     if (err || res.statusCode !== 200) {
       console.log(err);
@@ -172,17 +170,17 @@ var snipe = function () {
   // If we still have stuff remaining ...
   if (remaining >= 5) {
     console.log("Yup!");
-    console.log("Finding event for group : " + group_name);
+    console.log("Finding event for group : " + process.env.GROUP_NAME);
     findEvent();
   } else {
     console.log("Nope. Lets wait a bit.");
   }
   // Delay it between 1 to 1800 seconds (30min)
-  setTimeout(snipe, getDelay(1, 1800));
+  setTimeout(snipe, getDelay(1, process.env.MAX_DELAY));
 };
 
 // Kickoff
-setTimeout(snipe, getDelay(1, 1800));
+setTimeout(snipe, getDelay(1, process.env.MAX_DELAY));
 // Webserver for status pinging
 console.log("Starting web server");
 connect().use(serveStatic(__dirname)).listen(process.env.PORT || 8080);
