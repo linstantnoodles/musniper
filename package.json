@@ -1,0 +1,20 @@
+{
+  "name": "meetup-sniper",
+  "version": "0.0.0",
+  "description": "",
+  "main": "sniper.js",
+  "dependencies": {
+    "connect": "^3.3.4",
+    "meetup-api": "^0.1.18",
+    "prettyjson": "^1.1.0",
+    "request": "^2.53.0",
+    "serve-static": "^1.9.1",
+    "twilio": "^1.11.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC"
+}
