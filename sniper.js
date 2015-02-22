@@ -1,12 +1,18 @@
 
 var connect = require("connect");
 var serveStatic = require("serve-static");
+var moment = require("moment-timezone");
 var request = require("request");
 var twilio = require("twilio");
 var twilioClient = twilio(process.env.ACCT_SID, process.env.AUTH_TOKEN);
 var prettyjson = require("prettyjson");
 var remaining = 30;
 var complete = false;
+
+// numeric value of UTC in ms
+function getDate(time) {
+  return moment(time).tz("America/New_York").format("dddd, MMMM Do YYYY, h:mA");
+}
 
 // a and b are seconds
 // return ms
@@ -107,7 +113,7 @@ function getSurveyQuestions(id) {
       var eventData = {
         name: result.name,
         questions: result.survey_questions,
-        date: new Date(result.time),
+        date: getDate(result.time),
         address: result.venue.address_1,
         link: result.event_url
       };
